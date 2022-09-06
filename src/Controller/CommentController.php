@@ -18,7 +18,7 @@ class CommentController extends AbstractController
     }
 
     //commentVote
-    #[Route('/comments/{id}/vote/{direction}', name: 'app_comment_vote')]
+    #[Route('/comments/{id}/vote/{direction<up|down>}', name: 'app_comment_vote', methods: ['POST'])]
     public function commentVote($id, $direction): Response
     {
         // todo use id to query database for comment
