@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuestionController!
+{% endblock %}
+
+
+{% block body %}
+
+	<h1>{{ question }}</h1>
+
+	<div>
+		Eventaully, I want to be able to have a list of questions and answers, and have the user click on the question and have the answer appear below it. I'm not sure how to do this, and I'm not sure if I'm even on the right track. Any help would be appreciated. Thanks!
+	</div>
+
+	<h2>Answers ({{ answers|length}})</h2>
+
+	{% for answer in answers %}
+		<ul>{{ answer }}</ul>
+	{% endfor %}
+{% endblock %}
