@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
 {
-    #[Route('/question', name: 'app_question')]
+    #[Route('/question', name: 'app_homepage')]
     public function index(): Response
     {
         return $this->render('question/index.html.twig', [
@@ -24,6 +24,8 @@ class QuestionController extends AbstractController
             'This is my second answer',
             'This is my third answer',
         ];
+        // debuging
+        dump($slug, $this);
 
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-', ' ', $slug)),
