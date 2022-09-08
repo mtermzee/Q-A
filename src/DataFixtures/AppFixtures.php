@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Question;
+use App\Factory\QuestionFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -13,7 +13,7 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $question = new Question();
+        /* $question = new Question();
         $question->setName('Some question')
             ->setSlug('some-question-' . rand(0, 1000))
             ->setQuestion(<<<EOF
@@ -29,6 +29,10 @@ class AppFixtures extends Fixture
         //dd($question);
         // add to database
         $manager->persist($question);
-        $manager->flush();
+        $manager->flush();*/
+
+        // use Factory instate of Fixtures
+        // QuestionFactory::new()->create();
+        QuestionFactory::new()->createMany(20);
     }
 }
