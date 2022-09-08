@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Repository\QuestionRepository;
 use App\Service\MarkdownHelper;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +15,17 @@ use Symfony\Contracts\Cache\CacheInterface;
 class QuestionController extends AbstractController
 {
     #[Route('/questions', name: 'app_homepage')]
-    public function index(): Response
+    public function index(QuestionRepository $qr): Response
     {
+        //$repository = $em->getRepository(Question::class);
+        // $questions = $repository->findAll();        
+        // $questions = $repository->findBy([], ['askedAt' => 'DESC']);        //findAllAskedOrderedByNewest()
+        $questions = $qr->findAllAskedOrderedByNewest();
+
+        //dd($questions);
+
         return $this->render('question/index.html.twig', [
-            'controller_name' => 'QuestionController',
+            'questions' => $questions,
         ]);
     }
 
