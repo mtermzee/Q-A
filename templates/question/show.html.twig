@@ -16,9 +16,11 @@
 								<img src="{{ asset('/images/tisha.png') }}" width="100" height="100">
 								<div class="mt-3">
 									<small>
-										Asked
-										<br>
-										10 days ago
+										{% if question.askedAt %}
+											{{ question.askedAt|ago }}
+										{% else %}
+											(unpublished)
+										{% endif %}
 									</small>
 								</div>
 							</div>
