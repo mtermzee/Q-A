@@ -34,7 +34,7 @@ class QuestionController extends AbstractController
         /*$parsedQuestionText = $cache->get('markdown_' . md5($questionText), function () use ($questionText, $parser) {
             return $parser->transformMarkdown($questionText);
         }); now with the new own Serivce */
-        $parsedQuestionText = $markdownHelper->parse($questionText);
+        $parsedQuestionText = $markdownHelper->parse($questionText, $parser, $cache);
 
         // debuging
         dump($slug, $this);
