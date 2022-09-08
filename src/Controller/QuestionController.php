@@ -41,6 +41,7 @@ class QuestionController extends AbstractController
         if (rand(1, 10) > 2) {
             $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
         }
+        $question->setVotes(rand(-20, 50));
 
         //dd($question);
         // add to database
@@ -54,16 +55,18 @@ class QuestionController extends AbstractController
         ));
     }
 
+    //Automatic Controller Queries: Param Converter
     #[Route('/questions/{slug}', name: 'app_question_show')]
-    public function show($slug, EntityManagerInterface $em, MarkdownParserInterface $parser, CacheInterface $cache, MarkdownHelper $markdownHelper): Response
+    public function show(Question $question, MarkdownHelper $markdownHelper): Response
     {
+        //$slug, EntityManagerInterface $em, MarkdownParserInterface $parser, CacheInterface $cache,
         // get Data from database
-        $repository = $em->getRepository(Question::class);
+        //$repository = $em->getRepository(Question::class);
         /**  @var Qeustion|null $question */
-        $question = $repository->findOneBy(['slug' => $slug]);
-        if (!$question) {
+        //$question = $repository->findOneBy(['slug' => $slug]);
+        /* if (!$question) {
             throw $this->createNotFoundException(sprintf('No question found for slug "%s"', $slug));
-        }
+        }*/
 
         $answers = [
             'This is my `first` answer',
@@ -81,7 +84,7 @@ class QuestionController extends AbstractController
         $parsedQuestionText = $markdownHelper->parse($questionText, $parser, $cache);*/
 
         // debuging
-        dump($slug, $this);
+        //dump($slug, $this);
 
         return $this->render('question/show.html.twig', [
             /*'question' => ucwords(str_replace('-', ' ', $slug)),
