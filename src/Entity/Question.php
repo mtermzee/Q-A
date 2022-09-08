@@ -87,6 +87,13 @@ class Question
         return $this->votes;
     }
 
+    public function setVotes(int $votes): self
+    {
+        $this->votes = $votes;
+
+        return $this;
+    }
+
     public function getVotesString(): string
     {
         $prefix = $this->votes > 0 ? '+' : '-';
@@ -94,9 +101,16 @@ class Question
         return sprintf('%s%d', $prefix, abs($this->getVotes()));
     }
 
-    public function setVotes(int $votes): self
+    public function upVote(): self
     {
-        $this->votes = $votes;
+        $this->votes++;
+
+        return $this;
+    }
+
+    public function downVote(): self
+    {
+        $this->votes--;
 
         return $this;
     }
