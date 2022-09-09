@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends AbstractController
 {
-    #[Route('/comment', name: 'app_comment')]
+    #[Route('/answers', name: 'app_comment')]
     public function index(): Response
     {
         return $this->render('comment/index.html.twig', [
@@ -19,21 +21,26 @@ class CommentController extends AbstractController
     }
 
     //commentVote
-    #[Route('/comments/{id}/vote/{direction<up|down>}', name: 'app_comment_vote', methods: ['POST'])]
-    public function commentVote($id, $direction, LoggerInterface $logger): Response
+    #[Route('/answers/{id}/vote', name: 'answer_vote', methods: ['POST'])]
+    public function commentVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager): Response
     {
         // todo use id to query database for comment
+        $direction = $request->request->get('direction');
 
-        // use real vote logic to save this to the database
+        // use real logic here to save this to the database
         if ($direction === 'up') {
             $logger->info('Voting up!');
-            $currentVoteCount = rand(7, 100);
+            $answer->setVotes($answer->getVotes() + 1);
         } else {
             $logger->info('Voting down!');
-            $currentVoteCount = rand(0, 5);
+            $answer->setVotes($answer->getVotes() - 1);
         }
 
-        //return new JsonResponse(['votes' => $currentVoteCount]);
-        return $this->json(['votes' => $currentVoteCount]);
+        //dd($answer, $request->request->all());
+
+        $entityManager->flush();
+
+
+        return $this->json(['votes' => $answer->getVotes()]);
     }
 }

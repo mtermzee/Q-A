@@ -48,21 +48,22 @@ class QuestionController extends AbstractController
             throw $this->createNotFoundException(sprintf('No question found for slug "%s"', $slug));
         }*/
 
+
         // get answers
-        $answers = $answerRepository->findBy(['question' => $question]);
+        //$answers = $answerRepository->findBy(['question' => $question]);
         // dd($answers);
         //or 
-        $answers = $question->getAnswers();
-        foreach ($answers as $answer) {
+        //$answers = $question->getAnswers();
+        /* foreach ($answers as $answer) {
             dump($answer);
             //$answer->getAnswer();
-        }
+        }*/
 
-        $answers = [
+        /* $answers = [
             'This is my `first` answer',
             'This is my second answer',
             'This is my third answer',
-        ];
+        ];*/
 
         //KnpMarkdownBundle
         //$parsedQuestionText = $parser->transformMarkdown($questionText);
@@ -76,11 +77,13 @@ class QuestionController extends AbstractController
         // debuging
         //dump($slug, $this);
 
+        //$answers = $question->getAnswers();
+
         return $this->render('question/show.html.twig', [
             /*'question' => ucwords(str_replace('-', ' ', $slug)),
             'questionText' => $parsedQuestionText,*/
             'question' => $question,
-            'answers' => $answers,
+            //'answers' => $answers,
         ]);
     }
 
