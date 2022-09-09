@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use App\Service\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,7 +37,7 @@ class QuestionController extends AbstractController
 
     //Automatic Controller Queries: Param Converter
     #[Route('/questions/{slug}', name: 'app_question_show')]
-    public function show(Question $question, MarkdownHelper $markdownHelper): Response
+    public function show(Question $question, AnswerRepository $answerRepository): Response
     {
         //$slug, EntityManagerInterface $em, MarkdownParserInterface $parser, CacheInterface $cache,
         // get Data from database
@@ -46,6 +47,16 @@ class QuestionController extends AbstractController
         /* if (!$question) {
             throw $this->createNotFoundException(sprintf('No question found for slug "%s"', $slug));
         }*/
+
+        // get answers
+        $answers = $answerRepository->findBy(['question' => $question]);
+        // dd($answers);
+        //or 
+        $answers = $question->getAnswers();
+        foreach ($answers as $answer) {
+            dump($answer);
+            //$answer->getAnswer();
+        }
 
         $answers = [
             'This is my `first` answer',
