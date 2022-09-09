@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
 
         // use Factory instate of Fixtures
         // QuestionFactory::new()->create();
-        QuestionFactory::new()->createMany(20);
+        $questions = QuestionFactory::new()->createMany(20);
 
         QuestionFactory::new()
             ->unpublished()
@@ -55,7 +55,11 @@ class AppFixtures extends Fixture
         $manager->persist($answer);
         $manager->persist($question);*/
 
-        AnswerFactory::createMany(100);
+        AnswerFactory::createMany(100, function () use ($questions) {
+            return [
+                'question' => $questions[array_rand($questions)]
+            ];
+        });
 
         $manager->flush();
     }
