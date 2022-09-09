@@ -47,7 +47,7 @@ class QuestionRepository extends ServiceEntityRepository
     {
         return $this->addIsAskedQueryBuilder()
             ->orderBy('q.askedAt', 'DESC')
-            ->setMaxResults(10)
+            //->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }

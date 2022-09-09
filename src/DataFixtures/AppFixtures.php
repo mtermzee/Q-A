@@ -34,5 +34,9 @@ class AppFixtures extends Fixture
         // use Factory instate of Fixtures
         // QuestionFactory::new()->create();
         QuestionFactory::new()->createMany(20);
+
+        QuestionFactory::new()
+            ->unpublished()
+            ->createMany(5);
     }
 }
