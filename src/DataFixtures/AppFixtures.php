@@ -54,12 +54,18 @@ class AppFixtures extends Fixture
 
         $manager->persist($answer);
         $manager->persist($question);*/
+        AnswerFactory::new(function () use ($questions) {
+            return [
+                'question' => $questions[array_rand($questions)]
+            ];
+        })->needsApproval()->many(20)->create();
 
         AnswerFactory::createMany(100, function () use ($questions) {
             return [
                 'question' => $questions[array_rand($questions)]
             ];
         });
+
 
         $manager->flush();
     }
