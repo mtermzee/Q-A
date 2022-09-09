@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -36,7 +37,7 @@ class Question
     #[ORM\Column]
     private ?int $votes = 0;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private Collection $answers;
 
     public function __construct()
