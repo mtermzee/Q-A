@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Answer;
 use App\Entity\Question;
+use App\Factory\AnswerFactory;
 use App\Factory\QuestionFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -41,7 +42,7 @@ class AppFixtures extends Fixture
             ->unpublished()
             ->createMany(5);
 
-        $answer = new Answer();
+        /*$answer = new Answer();
         $answer->setContent('This is a test answer')
             ->setUsername('John Doe');
 
@@ -52,7 +53,9 @@ class AppFixtures extends Fixture
         $answer->setQuestion($question);
 
         $manager->persist($answer);
-        $manager->persist($question);
+        $manager->persist($question);*/
+
+        AnswerFactory::createMany(100);
 
         $manager->flush();
     }
