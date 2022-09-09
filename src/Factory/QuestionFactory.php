@@ -49,12 +49,14 @@ final class QuestionFactory extends ModelFactory
             'slug' => self::faker()->text(),
             'question' => self::faker()->text(),
             'votes' => self::faker()->randomNumber(),
+
             <<<EOF
                 This is a question about something. 
             
                 I want to know more about something. Can you tell me more about something?
             EOF
             */
+
             // faker for really good fake data
             'name' => self::faker()->realText(40),
             //'slug' => self::faker()->slug(),
@@ -73,12 +75,13 @@ final class QuestionFactory extends ModelFactory
     {
         // see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
         return $this
-            ->afterInstantiate(function (Question $question): void {
+            //->afterInstantiate(function (Question $question): void { )}
+            /*->afterInstantiate(function (Question $question): void {
                 if (!$question->getSlug()) {
                     $slugger = new AsciiSlugger();
                     $question->setSlug($slugger->slug($question->getName()));
                 }
-            });
+            });*/;
     }
 
     protected static function getClass(): string
