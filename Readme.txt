@@ -359,6 +359,18 @@ https://symfony.com/doc/current/reference/constraints.html
 **************************************************************
 
 -Symfony Authentication:
+composer require symfony/security-bundle
+authentication - login, log out
+authorization - user CRUD
+
+symfony console make:user User
+symfony console make:registration-form
+
+symfony console make:auth
+-	1
+-	LoginFormAuthenticator
+-	
+-	yes
 
 
 
