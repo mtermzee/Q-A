@@ -7,6 +7,7 @@ use App\Entity\Question;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,7 @@ class CommentController extends AbstractController
 
         $entityManager->flush();
 
+        // return new JsonResponse($this->generateUrl('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]));
         return $this->redirectToRoute('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]);
     }
 }
