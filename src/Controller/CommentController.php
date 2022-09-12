@@ -50,9 +50,11 @@ class CommentController extends AbstractController
     }
 
     #[Route('/answers/popular', name: 'app_popular_answers', methods: ['GET'])]
-    public function popularAnswers(AnswerRepository $answerRepository): Response
+    public function popularAnswers(AnswerRepository $answerRepository, Request $request): Response
     {
-        $answers = $answerRepository->findeMostPopular();
+        $answers = $answerRepository->findeMostPopular(
+            $request->query->get('q')
+        );
 
         return $this->render('comment/popularAnswers.html.twig', [
             'answers' => $answers,
