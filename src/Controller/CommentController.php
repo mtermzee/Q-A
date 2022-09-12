@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Answer;
 use App\Entity\Question;
+use App\Repository\AnswerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,5 +47,15 @@ class CommentController extends AbstractController
         // return new JsonResponse($this->generateUrl('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]));
         //return $this->redirectToRoute('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]);
         return $this->json(['votes' => $answer->getVotes()]);
+    }
+
+    #[Route('/answers/popular', name: 'app_popular_answers', methods: ['GET'])]
+    public function popularAnswers(AnswerRepository $answerRepository): Response
+    {
+        $answers = $answerRepository->findeMostPopular();
+
+        return $this->render('comment/popularAnswers.html.twig', [
+            'answers' => $answers,
+        ]);
     }
 }

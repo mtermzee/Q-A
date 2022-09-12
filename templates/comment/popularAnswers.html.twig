@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Popular Answers
+{% endblock %}
+
+{% block body %}
+	<div class="container my-md-4">
+		<div class="d-flex justify-content-between">
+			<h1>Most Popular Answers</h1>
+		</div>
+
+		<ul class="list-unstyled">
+			{% for answer in answers %}
+				{{ include('comment/_answer.html.twig', {
+					showQuestion: true,
+				}) }}
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
