@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Answer;
+use App\Entity\Question;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +41,6 @@ class CommentController extends AbstractController
 
         $entityManager->flush();
 
-
-        return $this->json(['votes' => $answer->getVotes()]);
+        return $this->redirectToRoute('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]);
     }
 }
