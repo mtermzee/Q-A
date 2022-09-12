@@ -27,7 +27,8 @@ class CommentController extends AbstractController
     public function commentVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager): Response
     {
         // todo use id to query database for comment
-        $direction = $request->request->get('direction');
+        $data = json_decode($request->getContent(), true);
+        $direction = $data['direction'] ?? 'up';
 
         // use real logic here to save this to the database
         if ($direction === 'up') {
@@ -43,6 +44,7 @@ class CommentController extends AbstractController
         $entityManager->flush();
 
         // return new JsonResponse($this->generateUrl('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]));
-        return $this->redirectToRoute('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]);
+        //return $this->redirectToRoute('app_question_show', ['slug' => $answer->getQuestion()->getSlug()]);
+        return $this->json(['votes' => $answer->getVotes()]);
     }
 }
