@@ -67,6 +67,7 @@ class AnswerRepository extends ServiceEntityRepository
         $queryBulider = $this->createQueryBuilder('answer')
             ->addCriteria(self::createApprovedCriteria())
             ->orderBy('answer.votes', 'DESC')
+            // joining across many-to-one relations: N+1 problem
             ->innerJoin('answer.question', 'question')
             ->addSelect('question');
 

@@ -48,6 +48,9 @@ class QuestionRepository extends ServiceEntityRepository
         return $this->addIsAskedQueryBuilder()
             ->orderBy('q.askedAt', 'DESC')
             //->setMaxResults(10)
+            // joining across many-to-many relations: N+1 problem
+            ->leftJoin('q.tags', 'tag')
+            ->addSelect('tag')
             ->getQuery()
             ->getResult();
     }
