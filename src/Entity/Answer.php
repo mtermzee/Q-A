@@ -15,6 +15,7 @@ class Answer
     public const STATUS_SPAM = 'spam';
     public const STATUS_APPROVED = 'approved';
 
+    // use it for the created and updated fields
     use TimestampableEntity;
 
     #[ORM\Id]

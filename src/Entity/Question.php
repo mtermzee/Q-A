@@ -10,13 +10,13 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
-use Doctrine\ORM\Query\Expr\Andx;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
+    // use it for the created and updated fields
     use TimestampableEntity;
 
     #[ORM\Id]
