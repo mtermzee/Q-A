@@ -7,6 +7,7 @@ use App\Entity\Question;
 use App\Entity\Tag;
 use App\Factory\AnswerFactory;
 use App\Factory\QuestionFactory;
+use App\Factory\TagFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -37,7 +38,15 @@ class AppFixtures extends Fixture
 
         // use Factory instate of Fixtures
         // QuestionFactory::new()->create();
-        $questions = QuestionFactory::new()->createMany(20);
+        TagFactory::new()->createMany(100);
+
+        $questions = QuestionFactory::new()->createMany(20, function () {
+            // we user return to rlate defrrent id-tags to defrrent questions
+            return [
+                // realte tags to questions randomly
+                'tags' => TagFactory::randomRange(0, 5)
+            ];
+        });
 
         QuestionFactory::new()
             ->unpublished()
@@ -67,18 +76,12 @@ class AppFixtures extends Fixture
             ];
         });
 
-        $question = QuestionFactory::createOne()->object();
+        /*$question = QuestionFactory::createOne()->object();
         $tag1 = new Tag();
         $tag1->setName('diosaurs');
-        $tag2 = new Tag();
-        $tag2->setName('Monster trucks');
-
         // realte tgas to questions
         $question->addTag($tag1);
-        $question->addTag($tag2);
-
-        $manager->persist($tag1);
-        $manager->persist($tag2);
+        $manager->persist($tag1);*/
 
         $manager->flush();
     }
