@@ -16,8 +16,8 @@ use Pagerfanta\Doctrine\ORM\QueryAdapter;
 
 class QuestionController extends AbstractController
 {
-    #[Route('/questions', name: 'app_homepage')]
-    public function index(QuestionRepository $qr): Response
+    #[Route('/questions/{page<\d+>}', name: 'app_homepage')]
+    public function index(QuestionRepository $qr, Request $request, int $page = 1): Response
     {
         //$repository = $em->getRepository(Question::class);
         // $questions = $repository->findAll();        
@@ -29,6 +29,8 @@ class QuestionController extends AbstractController
             new QueryAdapter($queryBuilder)
         );
         $pagerfanta->setMaxPerPage(5);
+        $pagerfanta->setCurrentPage($page);
+        //$pagerfanta->setCurrentPage($request->query->getInt('page', 1));
         //dd($questions);
 
         return $this->render('question/index.html.twig', [
