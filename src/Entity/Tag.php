@@ -26,9 +26,13 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $taggedAt;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->taggedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -71,6 +75,18 @@ class Tag
         if ($this->questions->removeElement($question)) {
             $question->removeTag($this);
         }
+
+        return $this;
+    }
+
+    public function getTaggedAt(): ?\DateTimeImmutable
+    {
+        return $this->taggedAt;
+    }
+
+    public function setTaggedAt(\DateTimeImmutable $taggedAt): self
+    {
+        $this->taggedAt = $taggedAt;
 
         return $this;
     }
