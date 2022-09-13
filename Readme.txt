@@ -358,15 +358,15 @@ symfony console make:entity
 	- string
 	- 255
 	- no
+	-taggedAt
+	-dateTime-im
+	-no
 Symfony console make:migration
 symfony console doctrine:migrations:migrate
 
 -ManyToMany Relation
 Each Tag has many questions and each Question has many Tags.  No deferents where:
 symfony console make:entity
-	-taggedAt
-	-dateTime-im
-	-no
 	-Question
 	-tags
 	-relation
