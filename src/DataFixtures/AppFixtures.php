@@ -40,6 +40,7 @@ class AppFixtures extends Fixture
         // QuestionFactory::new()->create();
         TagFactory::new()->createMany(100);
 
+        // create 20 questions
         $questions = QuestionFactory::new()->createMany(20, function () {
             // we user return to rlate defrrent id-tags to defrrent questions
             return [
