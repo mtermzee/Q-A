@@ -1,10 +1,13 @@
-
 Ganze Sachen unter diesem Link:
 https://symfonycasts.com/tracks/symfony5
 
+https://symfonycasts.com/screencast/symfony3-forms/save-redirect-set-flash
+https://symfony.com/doc/current/frontend/ux.html
+
 ----------------------------make prject---------------------------------
 // Erase the whole cache
-> php symfony cache:clear
+php symfony cache:clear
+./bin/console cache:clear
 
 composer create-project symfony/skeleton "name"
 cd PATH
@@ -322,14 +325,93 @@ https://symfonycasts.com/screencast/doctrine-relations/answer-status
 Watch it again for answer-status
 
 
+-Collection Criteria for Custom Relation Queries
+About performance to render the answers 
+
+-How to Configure a Redirect without a custom Controller
+https://symfony.com/doc/4.1/routing/redirect_in_config.html
+
+-Most Popular Answers Page
+
+-The |u Filter & String Component
+In the Entity Answer add methods
+https://symfony.com/doc/current/components/string.html#usage
 
 
--Collection Criteria for Custom Relation Queries					am Montag
-https://symfonycasts.com/screencast/doctrine-relations/collection-criteria
+-Joining Across a Relationship & The N + 1 Problem
+https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping
+https://medium.com/doctolib/understanding-and-fixing-n-1-query-30623109fe89
+For more query performence	-> makes the getmostpopluar in one Query so goooood.
+
+-Search, the Request Object & OR Query Logic
+Really nice one in most popular make search for answers and questions
+elasticsearch for smarter search
+
+-The 4 (2?) Possible Relation Types
+ManyToOne, OneToMany, OneToOne -> are really the same realstionship
+ManyToMany -> its deferent lest make one here. By doing Tags
+OneToOne -> USER, Profile: in one class to reduce the complexity
+		-> wait until you have real performance problems and then debug it.
+symfony console make:entity
+	- Tag
+	- name
+	- string
+	- 255
+	- no
+Symfony console make:migration
+symfony console doctrine:migrations:migrate
+
+-ManyToMany Relation
+Each Tag has many questions and each Question has many Tags.  No deferents where:
+symfony console make:entity
+	-taggedAt
+	-dateTime-im
+	-no
+	-Question
+	-tags
+	-relation
+	-Tag
+	-ManyToMany
+	-yes
+	-questions
+
+-Saving Items in a ManyToMany Relation
+In Appfixtuers
+
+-Handling ManyToMany in Foundry
+Symfony console make:factory
+	-Tag
+
+-Joining Across a ManyToMany : fixing N + 1 Problem
+To get les querys and more performance HOW:
+Like how we did to answers in AnswerRepo by joining across the question relationship and then selecting the question data.
+
+
+-ManyToMany... with Extra Fields on the Join Table?	
+As soon we need one extra column on this manytomany, we need to stop using a ManytoMany relationship instead we need to create an Entity for the join table and manually relate the entity to question and tag. So the entity QuestionTag
+But I will not use it so I will use the manytomany
+-When a Migration Falls Apart
+-QuestionTag Fixtures & DateTimeImmutable with Faker
+Here I do not use QuestionTag I use the old manytomany Tag
+-Doing Crazy things with Foundry & Fixtures
+-JOINing Across Multiple Relationships
+
+-Pagination with Pagerfanta
+To make see more questions -> doctrine features -> KnpPagiator, Pagerfanta
+When we use it so we do not need to query the data directly instead, our job to create a querybuilder and pass that to the pagerinator-> which will then figure out which page we are on, set up the limit and offset parts of the query and then execute it.
+https://github.com/BabDev/PagerfantaBundle
+composer require babdev/pagerfanta-bundle
+composer require pagerfanta/doctrine-orm-adapter
+
+-Themed Pagination Links
+composer require pagerfanta/twig
+Configurations for the view:
+./bin/console cache:clear
 
 **************************************************************
 
 -How to Compile Assets in Symfony for frontend frameworks:
+composer require symfony/asset
 composer require encore
 composer require symfony/webpack-encore-bundle
 npm install
@@ -371,8 +453,5 @@ symfony console make:auth
 -	LoginFormAuthenticator
 -	
 -	yes
-
-
-
 
 
