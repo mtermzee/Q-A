@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 
 class QuestionController extends AbstractController
 {
@@ -20,12 +22,17 @@ class QuestionController extends AbstractController
         //$repository = $em->getRepository(Question::class);
         // $questions = $repository->findAll();        
         // $questions = $repository->findBy([], ['askedAt' => 'DESC']);        //findAllAskedOrderedByNewest()
-        $questions = $qr->findAllAskedOrderedByNewest();
+        //$questions = $qr->findAllAskedOrderedByNewest();
+        $queryBuilder = $qr->createAskedOrderByNewestQueryBuilder();
 
+        $pagerfanta = new Pagerfanta(
+            new QueryAdapter($queryBuilder)
+        );
+        $pagerfanta->setMaxPerPage(5);
         //dd($questions);
 
         return $this->render('question/index.html.twig', [
-            'questions' => $questions,
+            'pager' => $pagerfanta,
         ]);
     }
 
