@@ -4,6 +4,9 @@ https://symfonycasts.com/tracks/symfony5
 https://symfonycasts.com/screencast/symfony3-forms/save-redirect-set-flash
 https://symfony.com/doc/current/frontend/ux.html
 
+To clone this one:
+https://stackoverflow.com/questions/57888864/how-to-clone-symfony-and-vue-project-to-local-machine
+composer install
 ----------------------------make prject---------------------------------
 // Erase the whole cache
 php symfony cache:clear
