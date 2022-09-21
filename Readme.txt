@@ -457,4 +457,8 @@ symfony console make:auth
 -	
 -	yes
 
+symfony console make:registration-form     
+-yes
+-no
+-yes
 
